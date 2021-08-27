@@ -17,71 +17,33 @@ function playerPlay(choice) {
     return choice;
 }
 
-function roundPlay(playerChoice, computerChoice) {
+function battle(playerChoice, computerChoice) {
     
     if(playerChoice === computerChoice){
-        alert("It's a tie");
+        return "It's a tie";
     }
     else if(playerChoice === "ROCK" && computerChoice === "PAPER"){
-        alert("CPU wins");
+        return "CPU wins";
     }
     else if(playerChoice === "ROCK" && computerChoice === "SCISSORS"){
-        alert("Player wins");
+        return "Player wins";
     }
     else if(playerChoice === "PAPER" && computerChoice === "ROCK"){
-        alert("Player wins");
+        return "Player wins";
     }
     else if(playerChoice === "PAPER" && computerChoice === "SCISSORS"){
-        alert("CPU wins");
+        return "CPU wins";
     }
     else if(playerChoice === "SCISSORS" && computerChoice === "ROCK"){
-        alert("CPU wins");
+        return "CPU wins";
     }
     else if(playerChoice === "SCISSORS" && computerChoice === "PAPER"){
-        alert("Player wins");
+        return "Player wins";
     }
     else{
-        alert("Player choice unrecognized");
+        return "Player choice unrecognized";
     }
 }
-
-
-function playGame() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let winnerName = "";
-
-    do {
-        let playerChoice = playerPlay().toUpperCase();
-        let computerChoice = computerPlay().toUpperCase();
-        let winner = roundPlay(playerChoice, computerChoice);
-        alert(winner);
-
-        if(winner === "Player wins"){
-            playerScore++;
-        }
-        else if(winner === "CPU wins"){
-            computerScore++;
-        }
-
-        alert(`Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`);
-
-        if(playerScore===3){
-            winnerName = "You have defeated the CPU. Congratulations !";
-            break;
-        }
-        else if(computerScore===3){
-            winnerName = "CPU has defeated you. Too bad...";
-            break;
-        }
-
-    } while ((playerScore + computerScore)<5);
-    alert(winnerName);
-}
-
-//playGame();
-
-
 
 
 
@@ -93,17 +55,68 @@ play the function Round
 display the results on the results div
 */
 
+const resultsDiv = document.getElementById('resultsDiv');
+const winnerPara = document.getElementById('winnerPara');
+const scorePara = document.getElementById('scorePara');
+const newPara = document.createElement('p');
+let playerScore = 0;
+let computerScore = 0;
+let winner = "";
 
 
+function playRound(choice) {
+
+    let battleResult = battle(playerPlay(choice), computerPlay());
+
+    return battleResult;
+
+}
+
+//----------------------------------------------------------------------------------
+function playGame(choice) {
+    
+    winner = playRound(choice);
+
+    if(winner === "Player wins"){
+        winnerPara.textContent = winner;
+        playerScore++;
+        scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
+    }
+    else if(winner === "CPU wins"){
+        winnerPara.textContent = winner;
+        computerScore++;
+        scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
+    }
+
+    if(playerScore === 5){
+        newPara.textContent = 'Player has won. Thanks for playing !';
+        resultsDiv.appendChild(newPara);
+    
+    }
+    else if(computerScore === 5){
+        newPara.textContent = 'CPU has defeated you. Thanks for playing !';
+        resultsDiv.appendChild(newPara);
+    
+    }
+}
 
 document.getElementById('rockBtn').addEventListener('click', function() {
-    roundPlay(playerPlay('ROCK'), computerPlay());
+
+    playGame('ROCK');
+    
 });
 
 document.getElementById('paperBtn').addEventListener('click', function() {
-    roundPlay(playerPlay('PAPER'), computerPlay());
+
+    playGame('PAPER');
+
 });
 
 document.getElementById('scissorsBtn').addEventListener('click', function() {
-    roundPlay(playerPlay('SCISSORS'), computerPlay());
+
+    playGame('SCISSORS');
+
 });
+
+
+
