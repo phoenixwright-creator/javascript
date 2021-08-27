@@ -2,46 +2,46 @@ function computerPlay() {
     let choice = Math.floor(Math.random()*3);
     switch(choice) {
         case 0:
-            return "Rock";
+            return "ROCK";
 
         case 1:
-            return "Paper";
+            return "PAPER";
 
         case 2:
-            return "Scissors";
+            return "SCISSORS";
     }
 }
 
-function playerPlay() {
-    let choice = prompt("Choose between Rock, Paper and Scissors : ");
+function playerPlay(choice) {
     
     return choice;
 }
 
 function roundPlay(playerChoice, computerChoice) {
+    
     if(playerChoice === computerChoice){
-        return "It's a tie";
+        alert("It's a tie");
     }
     else if(playerChoice === "ROCK" && computerChoice === "PAPER"){
-        return "CPU wins";
+        alert("CPU wins");
     }
     else if(playerChoice === "ROCK" && computerChoice === "SCISSORS"){
-        return "Player wins";
+        alert("Player wins");
     }
     else if(playerChoice === "PAPER" && computerChoice === "ROCK"){
-        return "Player wins";
+        alert("Player wins");
     }
     else if(playerChoice === "PAPER" && computerChoice === "SCISSORS"){
-        return "CPU wins";
+        alert("CPU wins");
     }
     else if(playerChoice === "SCISSORS" && computerChoice === "ROCK"){
-        return "CPU wins";
+        alert("CPU wins");
     }
     else if(playerChoice === "SCISSORS" && computerChoice === "PAPER"){
-        return "Player wins";
+        alert("Player wins");
     }
     else{
-        return "Player choice unrecognized";
+        alert("Player choice unrecognized");
     }
 }
 
@@ -79,5 +79,31 @@ function playGame() {
     alert(winnerName);
 }
 
-playGame();
+//playGame();
 
+
+
+
+
+/* create 3 btn
+assign value to each rock paper scissors
+launch event when clicked with good parameter of playerSelection
+playerSelection will have to get the value of each button
+play the function Round
+display the results on the results div
+*/
+
+
+
+
+document.getElementById('rockBtn').addEventListener('click', function() {
+    roundPlay(playerPlay('ROCK'), computerPlay());
+});
+
+document.getElementById('paperBtn').addEventListener('click', function() {
+    roundPlay(playerPlay('PAPER'), computerPlay());
+});
+
+document.getElementById('scissorsBtn').addEventListener('click', function() {
+    roundPlay(playerPlay('SCISSORS'), computerPlay());
+});
