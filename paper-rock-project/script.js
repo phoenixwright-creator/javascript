@@ -20,25 +20,25 @@ function playerPlay(choice) {
 function battle(playerChoice, computerChoice) {
     
     if(playerChoice === computerChoice){
-        return "It's a tie";
+        return "It's a tie !";
     }
     else if(playerChoice === "ROCK" && computerChoice === "PAPER"){
-        return "CPU wins";
+        return "CPU wins !";
     }
     else if(playerChoice === "ROCK" && computerChoice === "SCISSORS"){
-        return "Player wins";
+        return "Player wins !";
     }
     else if(playerChoice === "PAPER" && computerChoice === "ROCK"){
-        return "Player wins";
+        return "Player wins !";
     }
     else if(playerChoice === "PAPER" && computerChoice === "SCISSORS"){
-        return "CPU wins";
+        return "CPU wins !";
     }
     else if(playerChoice === "SCISSORS" && computerChoice === "ROCK"){
-        return "CPU wins";
+        return "CPU wins !";
     }
     else if(playerChoice === "SCISSORS" && computerChoice === "PAPER"){
-        return "Player wins";
+        return "Player wins !";
     }
     else{
         return "Player choice unrecognized";
@@ -55,13 +55,7 @@ play the function Round
 display the results on the results div
 */
 
-const resultsDiv = document.getElementById('resultsDiv');
-const winnerPara = document.getElementById('winnerPara');
-const scorePara = document.getElementById('scorePara');
-const newPara = document.createElement('p');
-let playerScore = 0;
-let computerScore = 0;
-let winner = "";
+
 
 
 function playRound(choice) {
@@ -77,28 +71,52 @@ function playGame(choice) {
     
     winner = playRound(choice);
 
-    if(winner === "Player wins"){
-        winnerPara.textContent = winner;
+    if(winner === "Player wins !"){
+        winnerPara.textContent = winner + ' Choose again.';
         playerScore++;
         scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
     }
-    else if(winner === "CPU wins"){
-        winnerPara.textContent = winner;
+    else if(winner === "CPU wins !"){
+        winnerPara.textContent = winner + ' Choose again.';
         computerScore++;
+        scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
+    }
+    else {
+        winnerPara.textContent = "It's a tie ! Choose again.";
         scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
     }
 
     if(playerScore === 5){
         newPara.textContent = 'Player has won. Thanks for playing !';
         resultsDiv.appendChild(newPara);
-    
+        return;
     }
     else if(computerScore === 5){
         newPara.textContent = 'CPU has defeated you. Thanks for playing !';
         resultsDiv.appendChild(newPara);
-    
+        return;
     }
+    
 }
+
+function newGame() {
+    playerScore = 0;
+    computerScore = 0;
+    winnerPara.textContent = 'Choose between rock paper and scissors to play';
+    scorePara.textContent = "";
+    newPara.textContent = "";
+}
+
+const resultsDiv = document.getElementById('resultsDiv');
+const winnerPara = document.getElementById('winnerPara');
+const scorePara = document.getElementById('scorePara');
+const newPara = document.createElement('p');
+let playerScore = 0;
+let computerScore = 0;
+let winner = "";
+
+winnerPara.textContent = 'Choose between rock paper and scissors to play';
+
 
 document.getElementById('rockBtn').addEventListener('click', function() {
 
@@ -118,5 +136,8 @@ document.getElementById('scissorsBtn').addEventListener('click', function() {
 
 });
 
+document.getElementById('newGame').addEventListener('click', function() {
+    newGame();
+})
 
 
