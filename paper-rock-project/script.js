@@ -45,19 +45,6 @@ function battle(playerChoice, computerChoice) {
     }
 }
 
-
-
-/* create 3 btn
-assign value to each rock paper scissors
-launch event when clicked with good parameter of playerSelection
-playerSelection will have to get the value of each button
-play the function Round
-display the results on the results div
-*/
-
-
-
-
 function playRound(choice) {
 
     let battleResult = battle(playerPlay(choice), computerPlay());
@@ -66,35 +53,50 @@ function playRound(choice) {
 
 }
 
-//----------------------------------------------------------------------------------
 function playGame(choice) {
     
     winner = playRound(choice);
 
-    if(winner === "Player wins !"){
+    if(winner === "Player wins !") {
         winnerPara.textContent = winner + ' Choose again.';
         playerScore++;
         scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
     }
-    else if(winner === "CPU wins !"){
+    else if(winner === "CPU wins !") {
         winnerPara.textContent = winner + ' Choose again.';
         computerScore++;
         scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
     }
-    else {
-        winnerPara.textContent = "It's a tie ! Choose again.";
+    else if (winner === "It's a tie !") {
+        tieCounter++;
+        switch(tieCounter){
+            case 1: 
+                winnerPara.textContent = "It's a tie ! Choose again.";
+                break;
+
+            case 2:
+                winnerPara.textContent = "Another tie ! Choose again.";
+                break;
+            
+            case 3:
+                winnerPara.textContent = "OMG are you doing it on purpose ? That's again another tie ! Choose again.";
+                break;
+
+            default:
+                winnerPara.textContent = "Tie ! That's incredible where is it going to end ? Choose again.";
+                break;
+        }
+        
         scorePara.textContent = `Score :\n\nPlayer : ${playerScore} - Computer : ${computerScore}`;
     }
 
-    if(playerScore === 5){
-        newPara.textContent = 'Player has won. Thanks for playing !';
-        resultsDiv.appendChild(newPara);
-        return;
+    if(playerScore === 5) {
+        alert('Player has won. Congratulations & thanks for playing !');
+        newGame();
     }
-    else if(computerScore === 5){
-        newPara.textContent = 'CPU has defeated you. Thanks for playing !';
-        resultsDiv.appendChild(newPara);
-        return;
+    else if(computerScore === 5) {
+        alert('CPU has defeated you. Too bad but you can take your chance again !');
+        newGame();
     }
     
 }
@@ -102,42 +104,47 @@ function playGame(choice) {
 function newGame() {
     playerScore = 0;
     computerScore = 0;
-    winnerPara.textContent = 'Choose between rock paper and scissors to play';
+    tieCounter = 0;
+    winnerPara.textContent = 'New game. Choose between rock paper and scissors to play.';
     scorePara.textContent = "";
     newPara.textContent = "";
 }
 
-const resultsDiv = document.getElementById('resultsDiv');
-const winnerPara = document.getElementById('winnerPara');
-const scorePara = document.getElementById('scorePara');
-const newPara = document.createElement('p');
-let playerScore = 0;
-let computerScore = 0;
-let winner = "";
+    const resultsDiv = document.getElementById('resultsDiv');
+    const winnerPara = document.getElementById('winnerPara');
+    const scorePara = document.getElementById('scorePara');
+    const newPara = document.createElement('p');
+    let playerScore = 0;
+    let computerScore = 0;
+    let winner = "";
+    let tieCounter = 0;
 
-winnerPara.textContent = 'Choose between rock paper and scissors to play';
+    winnerPara.textContent = 'Choose between rock paper and scissors to play.';
+
+    document.getElementById('rockBtn').addEventListener('click', function() {
+
+        playGame('ROCK');
+
+    });
+
+    document.getElementById('paperBtn').addEventListener('click', function() {
+
+        playGame('PAPER');
+
+    });
+
+    document.getElementById('scissorsBtn').addEventListener('click', function() {
+
+        playGame('SCISSORS');
+
+    });
+
+    document.getElementById('newGame').addEventListener('click', function() {
+        
+        newGame();
+
+    });
 
 
-document.getElementById('rockBtn').addEventListener('click', function() {
-
-    playGame('ROCK');
-    
-});
-
-document.getElementById('paperBtn').addEventListener('click', function() {
-
-    playGame('PAPER');
-
-});
-
-document.getElementById('scissorsBtn').addEventListener('click', function() {
-
-    playGame('SCISSORS');
-
-});
-
-document.getElementById('newGame').addEventListener('click', function() {
-    newGame();
-})
 
 
